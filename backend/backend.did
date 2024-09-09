@@ -1,0 +1,14 @@
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type LeaderboardEntry = 
+ record {
+   playerName: text;
+   score: nat;
+ };
+service : {
+  getLeaderboard: () -> (vec LeaderboardEntry) query;
+  submitScore: (text, nat) -> (Result);
+}
