@@ -1,12 +1,14 @@
 export const idlFactory = ({ IDL }) => {
-  const LeaderboardEntry = IDL.Record({
-    'score' : IDL.Nat,
-    'playerName' : IDL.Text,
+  const CoinInfo = IDL.Record({
+    'currentPrice' : IDL.Float64,
+    'totalSupply' : IDL.Nat,
+    'holders' : IDL.Nat,
   });
   const Result = IDL.Variant({ 'ok' : IDL.Null, 'err' : IDL.Text });
   return IDL.Service({
-    'getLeaderboard' : IDL.Func([], [IDL.Vec(LeaderboardEntry)], ['query']),
-    'submitScore' : IDL.Func([IDL.Text, IDL.Nat], [Result], []),
+    'getCoinInfo' : IDL.Func([], [CoinInfo], ['query']),
+    'updateHolders' : IDL.Func([IDL.Nat], [Result], []),
+    'updatePrice' : IDL.Func([IDL.Float64], [Result], []),
   });
 };
 export const init = ({ IDL }) => { return []; };

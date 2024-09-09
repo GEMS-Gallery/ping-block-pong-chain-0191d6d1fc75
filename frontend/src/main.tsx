@@ -8,14 +8,17 @@ import CssBaseline from '@mui/material/CssBaseline';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#3f51b5',
+      main: '#0078D4',
     },
     secondary: {
-      main: '#f50057',
+      main: '#7FBA00',
     },
     background: {
-      default: '#f5f5f5',
+      default: '#F0F0F0',
     },
+  },
+  typography: {
+    fontFamily: 'Segoe UI, Roboto, Arial, sans-serif',
   },
 });
 

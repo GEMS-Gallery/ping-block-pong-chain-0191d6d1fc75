@@ -3,12 +3,14 @@ type Result =
    err: text;
    ok;
  };
-type LeaderboardEntry = 
+type CoinInfo = 
  record {
-   playerName: text;
-   score: nat;
+   currentPrice: float64;
+   holders: nat;
+   totalSupply: nat;
  };
 service : {
-  getLeaderboard: () -> (vec LeaderboardEntry) query;
-  submitScore: (text, nat) -> (Result);
+  getCoinInfo: () -> (CoinInfo) query;
+  updateHolders: (nat) -> (Result);
+  updatePrice: (float64) -> (Result);
 }

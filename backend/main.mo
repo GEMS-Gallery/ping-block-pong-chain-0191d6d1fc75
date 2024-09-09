@@ -2,35 +2,40 @@ import Array "mo:base/Array";
 import Result "mo:base/Result";
 import Text "mo:base/Text";
 import Nat "mo:base/Nat";
-import Order "mo:base/Order";
+import Float "mo:base/Float";
 
 actor {
-  type LeaderboardEntry = {
-    playerName: Text;
-    score: Nat;
+  type CoinInfo = {
+    totalSupply: Nat;
+    currentPrice: Float;
+    holders: Nat;
   };
 
-  stable var leaderboard: [LeaderboardEntry] = [];
+  var coinInfo: CoinInfo = {
+    totalSupply = 1_000_000_000;
+    currentPrice = 0.01;
+    holders = 1000;
+  };
 
-  public func submitScore(playerName: Text, score: Nat): async Result.Result<(), Text> {
-    let entry: LeaderboardEntry = {
-      playerName = playerName;
-      score = score;
+  public query func getCoinInfo(): async CoinInfo {
+    coinInfo
+  };
+
+  public func updatePrice(newPrice: Float): async Result.Result<(), Text> {
+    coinInfo := {
+      totalSupply = coinInfo.totalSupply;
+      currentPrice = newPrice;
+      holders = coinInfo.holders;
     };
-
-    leaderboard := Array.append(leaderboard, [entry]);
-    leaderboard := Array.sort(leaderboard, func(a: LeaderboardEntry, b: LeaderboardEntry): Order.Order {
-      Nat.compare(b.score, a.score)
-    });
-
-    if (Array.size(leaderboard) > 10) {
-      leaderboard := Array.subArray(leaderboard, 0, 10);
-    };
-
     #ok(())
   };
 
-  public query func getLeaderboard(): async [LeaderboardEntry] {
-    leaderboard
+  public func updateHolders(newHolders: Nat): async Result.Result<(), Text> {
+    coinInfo := {
+      totalSupply = coinInfo.totalSupply;
+      currentPrice = coinInfo.currentPrice;
+      holders = newHolders;
+    };
+    #ok(())
   };
 }
